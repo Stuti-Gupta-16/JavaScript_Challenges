@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock Making</title>
+    <style>
+        html{ 
+            font-family: 'helvetica neue';
+            text-align:center;
+            font-size:10px;
+        }
+        body{
+            background: linear-gradient(135deg , #00c6ff, #0072ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .clock{
+            width:30rem;
+            height:30rem;
+            border:20px solid white;
+            border-radius:50%;
+            margin:50px auto;
+            position:relative;
+            padding:2rem;
+            box-shadow:
+                0 0 0 4px rgba(0,0,0,0.1),
+                inset 0 0 0 3px #EFEFEF,
+                inset 0 0 10px black,
+                0 0 10px rgba(0,0,0,0.2);
+        }
+        .clockface{
+            width:30em;
+            height:30em;
+            border-radius: 50%;
+            margin: 10px;
+        }
+        .hand{
+            width:50%;
+            height:6px;
+            background:#000000;
+            position:absolute;
+            top:50%;
+            transform-origin:100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="clockface">
+            <div class="hand hour">
+            </div>
+            <div class="hand miniute"></div>
+            <div class="hand sec"></div>
+        </div>
+    </div>
+     <div class="clock">
+        <div class="clockface">
+            <div class="hand hour1">
+            </div>
+            <div class="hand miniute1"></div>
+            <div class="hand sec1"></div>
+        </div>
+    </div>
+    <script>
+        const hour=document.querySelector(".hour");
+        const miniute=document.querySelector(".miniute");
+        const sec=document.querySelector(".sec");
+       
+        setInterval(()=>{
+            const now=new Date();
+            const secD=((now.getSeconds()*6)+90)%360;
+            const miniuteD=((now.getMinutes()*6)+90)%360;    
+            const hourD=((now.getHours()%12)*30+90)%360;
+            hour.style.transform=`rotate(${hourD}deg)`;
+            miniute.style.transform=`rotate(${miniuteD}deg)`;
+            sec.style.transform=`rotate(${secD}deg)`;
+        },1000)
+
+        const h=document.querySelector(".hour1");
+        const m=document.querySelector(".miniute1");
+        const s=document.querySelector(".sec1");
+        const t=new Date();
+        let sD=((t.getSeconds()*6)+90)%360;
+        let mD=((t.getMinutes()*6)+90)%360;    
+        let hD=((t.getHours()%12)*30+90)%360;
+        setInterval(()=>{
+            h.style.transform=`rotate(${hD}deg)`;
+            m.style.transform=`rotate(${mD}deg)`;
+            s.style.transform=`rotate(${sD}deg)`;
+            sD+=6;
+            mD+=0.1;
+            if(sD==450) {
+                sD-=360;
+                hD+=0.5;
+            }
+            if(mD==450) mD-=360;
+            if(hD==450) hD-=360;
+        },1000);
+
+    </script>
+</body>
+</html>
